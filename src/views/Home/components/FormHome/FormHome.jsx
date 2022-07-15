@@ -3,10 +3,11 @@ import { FormInput } from "../FormFields/FormInput/FormInput";
 import { FormTextArea } from "../FormFields/FormTextArea/FormTextArea";
 import { useForm } from "../../hooks/useForm";
 import { FormFields } from "../FormFields/FormFields";
-import { GroupFieldsStyled } from "../../../../App.styled";
+
 import {
   ButtonStyled,
   FormStyled,
+  GroupFieldsStyled,
 } from "../../styled-components/FormHome.styled";
 
 export const FormHome = ({

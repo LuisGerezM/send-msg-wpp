@@ -1,16 +1,9 @@
 import styled, { createGlobalStyle } from "styled-components";
 
-export const GlobalStyle = createGlobalStyle`
-    body{
-        margin: 0;
-        font-family: 'Inter', sans-serif;
-        background: linear-gradient(215deg,hsl(220 89% 37%),hsl(183 51% 54%), hsl(146, 68%, 55%));
-    }
-`;
+const mobileWidth = 600;
 
-const GroupFieldsStyled = styled.div`
-  display: flex;
-`;
+const mobile = `@media (max-width: ${mobileWidth}px)`;
+
 
 const outlineFields = "3px solid hsl(203, 89%, 53%)";
 
@@ -38,4 +31,17 @@ const DivFieldsStyled = styled.div`
   }
 `;
 
-export { InputStyled, DivFieldsStyled, GroupFieldsStyled, outlineFields };
+export {
+  InputStyled,
+  DivFieldsStyled,
+  outlineFields,
+  mobile,
+};
+
+export const GlobalStyle = createGlobalStyle`
+    body{
+        margin: 0;
+        font-family: 'Inter', sans-serif;
+        background: linear-gradient(215deg,hsl(220 89% 37%),hsl(183 51% 54%), hsl(146, 68%, 55%));
+    }
+`;
