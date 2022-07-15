@@ -1,11 +1,11 @@
 {
   "files": {
-    "main.js": "/send-msg-wpp/static/js/main.421a80c4.js",
+    "main.js": "/send-msg-wpp/static/js/main.e3b33ed1.js",
     "service-worker.js": "/send-msg-wpp/service-worker.js",
     "index.html": "/send-msg-wpp/index.html",
-    "main.421a80c4.js.map": "/send-msg-wpp/static/js/main.421a80c4.js.map"
+    "main.e3b33ed1.js.map": "/send-msg-wpp/static/js/main.e3b33ed1.js.map"
   },
   "entrypoints": [
-    "static/js/main.421a80c4.js"
+    "static/js/main.e3b33ed1.js"
   ]
 }
