@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { DivFieldsStyled, outlineFields } from "../../../App.styled";
+import { mobile, DivFieldsStyled, outlineFields } from "../../../App.styled";
 
 const FormStyled = styled.form`
   margin-top: 10px;
@@ -10,6 +10,17 @@ const FormStyled = styled.form`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  ${mobile} {
+    border: none;
+  }
+`;
+
+const GroupFieldsStyled = styled.div`
+  display: flex;
+  ${mobile} {
+    flex-wrap: wrap;
+  }
 `;
 
 const DivFieldsFormStyled = styled(DivFieldsStyled)`
@@ -17,9 +28,10 @@ const DivFieldsFormStyled = styled(DivFieldsStyled)`
 `;
 
 const SelectStyled = styled.select`
-  height: 2.7rem;
+  height: 2.5rem;
   padding: 10px;
   border-radius: 8px;
+  background-color: hsl(0, 0%, 100%);
   border: 2px solid hsl(203, 89%, 53%);
 
   &:focus {
@@ -77,6 +89,7 @@ const SpanStyled = styled.span`
 
 export {
   FormStyled,
+  GroupFieldsStyled,
   DivFieldsFormStyled,
   SelectStyled,
   TextAreaStyled,
