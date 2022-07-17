@@ -39,6 +39,83 @@ const SelectStyled = styled.select`
   }
 `;
 
+const ToggleSwitchStyled = styled.div`
+  position: relative;
+  width: 120px;
+  display: inline-block;
+  text-align: left;
+  top: 8px;
+  margin: 8px 0 13px;
+`;
+
+const LabelToggleStyled = styled.label`
+  display: block;
+  overflow: hidden;
+  cursor: pointer;
+  border: 0 solid #bbb;
+  border-radius: 20px;
+`;
+
+const InnerSpanStyled = styled.span`
+  display: block;
+  width: 200%;
+  margin-left: -100%;
+  transition: margin 0.3s ease-in 0s;
+
+  &:before,
+  &:after {
+    float: left;
+    width: 50%;
+    height: 36px;
+    padding: 0;
+    line-height: 36px;
+    color: #fff;
+    font-weight: bold;
+    box-sizing: border-box;
+  }
+
+  &:before {
+    content: "Lunes";
+    padding: 1px 20px;
+    background-color: hsl(220 89% 37%);
+    color: #fff;
+  }
+
+  &:after {
+    content: "Miércoles";
+    padding: 1px 10px;
+    background-color: hsl(146, 68%, 55%);
+    color: hsl(220 89% 0%);
+    text-align: right;
+  }
+`;
+
+const SwitchSpanStyled = styled.span`
+  display: block;
+  width: 24px;
+  margin: 5px;
+  background: #fff;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 84px;
+  border: 0 solid #bbb;
+  border-radius: 20px;
+  transition: all 0.3s ease-in 0s;
+`;
+
+const CheckboxStyled = styled.input`
+  display: none;
+
+  &:checked + ${LabelToggleStyled} ${InnerSpanStyled} {
+    margin-left: 0;
+  }
+
+  &:checked + ${LabelToggleStyled} ${SwitchSpanStyled} {
+    right: 0px;
+  }
+`;
+
 const TextAreaStyled = styled.textarea`
   padding: 10px;
   border-radius: 8px;
@@ -96,4 +173,9 @@ export {
   LabelStyled,
   ButtonStyled,
   SpanStyled,
+  ToggleSwitchStyled,
+  CheckboxStyled,
+  LabelToggleStyled,
+  InnerSpanStyled,
+  SwitchSpanStyled,
 };

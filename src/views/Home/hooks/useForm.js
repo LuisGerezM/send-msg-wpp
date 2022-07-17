@@ -5,6 +5,10 @@ import {
 } from "../../../utilities/utilForm";
 import * as yup from "yup";
 import { utilDataSubmitForm } from "../../../utilities/utilDataSubmitForm";
+import { useEffect, useState } from "react";
+
+const { REACT_APP_MONDAY: MONDAY, REACT_APP_WEDNESDAY: WEDNESDAY } =
+  process.env;
 
 export const useForm = ({
   handleUsedNumbers,
@@ -21,6 +25,9 @@ export const useForm = ({
     numberToSend: "",
     checked: false,
   };
+
+  const [switchToggleButton, setSwitchToggleButton] = useState(false);
+  const [msgToSend, setMsgToSend] = useState("");
 
   const { greeting, bodyMsg, date, hour, numberToSend } = validationMessages;
 
@@ -52,10 +59,37 @@ export const useForm = ({
     handleMessageToSend(message);
   };
 
+  const formik = useFormik({ initialValues, validationSchema, onSubmit });
+
   const handleChangeCheckbox = () =>
     formik.setFieldValue("checked", !formik.values.checked);
 
-  const formik = useFormik({ initialValues, validationSchema, onSubmit });
+  const handleChangedToggle = () => {
+    setSwitchToggleButton((prevValue) => !prevValue);
+  };
 
-  return { formik, handleChangeCheckbox };
+  const handleChangeTextArea = (event) => {
+    setMsgToSend(event.target.value);
+  };
+
+  useEffect(() => {
+    if (switchToggleButton) {
+      setMsgToSend(MONDAY);
+      formik.setFieldValue("bodyMsg", MONDAY);
+    } else {
+      setMsgToSend(WEDNESDAY);
+      formik.setFieldValue("bodyMsg", WEDNESDAY);
+    }
+
+    return () => {};
+  }, [switchToggleButton]);
+
+  return {
+    formik,
+    handleChangeCheckbox,
+    setSwitchToggleButton,
+    handleChangedToggle,
+    msgToSend,
+    handleChangeTextArea,
+  };
 };

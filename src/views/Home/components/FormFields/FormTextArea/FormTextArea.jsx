@@ -1,10 +1,11 @@
 import { TextAreaStyled } from "../../../styled-components/FormHome.styled";
 
 export const FormTextArea = ({
-  handleChange,
+  handleChangeTextArea,
   handleBlur,
   name,
   placeholder,
+  value,
 }) => {
   return (
     <TextAreaStyled
@@ -12,8 +13,9 @@ export const FormTextArea = ({
       rows="10"
       cols="30"
       placeholder={placeholder}
-      onChange={handleChange}
+      onChange={handleChangeTextArea}
       onBlur={handleBlur}
+      value={value}
     />
   );
 };
