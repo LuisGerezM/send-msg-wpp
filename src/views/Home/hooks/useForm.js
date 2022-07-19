@@ -70,6 +70,7 @@ export const useForm = ({
 
   const handleChangeTextArea = (event) => {
     setMsgToSend(event.target.value);
+    formik.setFieldValue("bodyMsg", event.target.value);
   };
 
   useEffect(() => {

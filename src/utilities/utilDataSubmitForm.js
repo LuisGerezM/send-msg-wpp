@@ -1,6 +1,6 @@
 export const utilDataSubmitForm = ({ dataFormik, name }) => {
   const { date, hour, greeting, bodyMsg } = dataFormik;
-
+  
   const dateArray = date.split("-");
   const formatDay = dateArray.reverse().join("/");
 
@@ -21,10 +21,10 @@ export const utilDataSubmitForm = ({ dataFormik, name }) => {
 
   const greetingSelected = greetingValues[greeting];
 
-  const message = `${greetingSelected}, ${bodyMsg}. En la fecha: ${
+  const message = `${greetingSelected}, ${bodyMsg}. En la fecha: *${
     dayAndHour.day
   }${
-    dayAndHour.schedule ? `, en horario: ${dayAndHour.schedule} hs.` : "."
+    dayAndHour.schedule ? `, en horario: ${dayAndHour.schedule} hs.*` : ".*"
   } Atentamente ${name}.`;
 
   return { message };
