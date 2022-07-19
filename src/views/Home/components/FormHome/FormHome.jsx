@@ -6,8 +6,13 @@ import { FormFields } from "../FormFields/FormFields";
 
 import {
   ButtonStyled,
+  CheckboxStyled,
   FormStyled,
   GroupFieldsStyled,
+  InnerSpanStyled,
+  LabelToggleStyled,
+  SwitchSpanStyled,
+  ToggleSwitchStyled,
 } from "../../styled-components/FormHome.styled";
 
 export const FormHome = ({
@@ -20,6 +25,9 @@ export const FormHome = ({
   const {
     formik: { handleSubmit, handleChange, handleBlur, errors, touched },
     handleChangeCheckbox,
+    handleChangedToggle,
+    handleChangeTextArea,
+    msgToSend,
   } = useForm({
     handleUsedNumbers,
     handleMessageToSend,
@@ -72,16 +80,30 @@ export const FormHome = ({
           />
         </FormFields>
 
+        <ToggleSwitchStyled>
+          <CheckboxStyled
+            type="checkbox"
+            name="switch"
+            id="switch"
+            onClick={handleChangedToggle}
+          />
+          <LabelToggleStyled htmlFor="switch">
+            <InnerSpanStyled className="inner" value="aaaaa" />
+            <SwitchSpanStyled className="switch" value="bbbb" />
+          </LabelToggleStyled>
+        </ToggleSwitchStyled>
+
         <FormFields
           error={errors.bodyMsg}
           touch={touched.bodyMsg}
           labelText="Cuerpo del mensaje:"
         >
           <FormTextArea
-            handleChange={handleChange}
+            handleChangeTextArea={handleChangeTextArea}
             handleBlur={handleBlur}
             name="bodyMsg"
             placeholder="Ingresá tu mensaje. Por ej: Usted tiene un turno agendado."
+            value={msgToSend}
           />
         </FormFields>
 

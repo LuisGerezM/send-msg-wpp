@@ -27,4 +27,8 @@ const validationMessages = {
 const patternLetters = /^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{1,}$/g;
 const patternNumbers = /[0-9]+$/g;
 
-export { validationMessages, patternLetters, patternNumbers };
+export {
+  validationMessages,
+  patternLetters,
+  patternNumbers,
+};
