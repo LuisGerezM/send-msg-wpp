@@ -164,6 +164,18 @@ const SpanStyled = styled.span`
   }
 `;
 
+const DivCheckStyled = styled.div`
+  padding: 10px 0;
+`;
+
+
+const InputCopyPasteStyled = styled.input`
+  height: 1rem;
+  padding: 10px;
+  border-radius: 8px;
+  border: 2px solid hsl(203, 89%, 53%);
+`;
+
 export {
   FormStyled,
   GroupFieldsStyled,
@@ -178,4 +190,6 @@ export {
   LabelToggleStyled,
   InnerSpanStyled,
   SwitchSpanStyled,
+  DivCheckStyled,
+  InputCopyPasteStyled
 };

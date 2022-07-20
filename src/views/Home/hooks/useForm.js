@@ -1,11 +1,12 @@
 import { useFormik } from "formik";
 import {
-  patternNumbers,
+  separateStringValues,
+  validateFieldsWithYup,
   validationMessages,
 } from "../../../utilities/utilForm";
-import * as yup from "yup";
+
 import { utilDataSubmitForm } from "../../../utilities/utilDataSubmitForm";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const { REACT_APP_MONDAY: MONDAY, REACT_APP_WEDNESDAY: WEDNESDAY } =
   process.env;
@@ -17,6 +18,8 @@ export const useForm = ({
   handleDoYouHaveAppWpp,
   name,
 }) => {
+  const refCheckCopyPaste = useRef(null);
+
   const initialValues = {
     greeting: "",
     bodyMsg: "",
@@ -28,20 +31,19 @@ export const useForm = ({
 
   const [switchToggleButton, setSwitchToggleButton] = useState(false);
   const [msgToSend, setMsgToSend] = useState("");
+  const [messageSelected, setMessageSelected] = useState("");
+
+  const [showInputCopyPasteNameAndPhone, setShowInputCopyPasteNameAndPhone] =
+    useState(false);
 
   const { greeting, bodyMsg, date, hour, numberToSend } = validationMessages;
 
-  const validationSchema = yup.object().shape({
-    greeting: yup.string().required(greeting.required),
-    bodyMsg: yup.string().required(bodyMsg.required),
-    date: yup.date().required(date.required),
-    hour: yup.string().matches(patternNumbers, hour.format),
-    numberToSend: yup
-      .string()
-      .matches(patternNumbers, numberToSend.format)
-      .min(9, numberToSend.fieldLength)
-      .max(15, numberToSend.fieldLength)
-      .required(numberToSend.required),
+  const validationSchema = validateFieldsWithYup({
+    greeting,
+    bodyMsg,
+    date,
+    hour,
+    numberToSend,
   });
 
   const onSubmit = () => {
@@ -73,13 +75,42 @@ export const useForm = ({
     formik.setFieldValue("bodyMsg", event.target.value);
   };
 
+  const handleCheckCopyAndPaste = () => {
+    setShowInputCopyPasteNameAndPhone((prevValue) => !prevValue);
+  };
+
+  const handleChangeCopyPaste = (event) => {
+    if (showInputCopyPasteNameAndPhone) {
+      if (event.target.value.length > 16) {
+        const arrayString = separateStringValues(event.target.value);
+        const { numberPhone, nameToSend } = arrayString;
+
+        formik.setFieldValue(
+          "bodyMsg",
+          `${nameToSend} ${formik.values.bodyMsg}`
+        );
+        setMsgToSend(`${nameToSend} ${formik.values.bodyMsg}`);
+        formik.setFieldValue("numberToSend", `${numberPhone}`);
+      } else {
+        formik.setFieldValue("bodyMsg", messageSelected);
+        setMsgToSend(messageSelected);
+        formik.setFieldValue("numberToSend", "");
+      }
+    } else {
+      refCheckCopyPaste.current.click();
+      setShowInputCopyPasteNameAndPhone(false);
+    }
+  };
+
   useEffect(() => {
     if (switchToggleButton) {
       setMsgToSend(MONDAY);
       formik.setFieldValue("bodyMsg", MONDAY);
+      setMessageSelected(MONDAY);
     } else {
       setMsgToSend(WEDNESDAY);
       formik.setFieldValue("bodyMsg", WEDNESDAY);
+      setMessageSelected(WEDNESDAY);
     }
 
     return () => {};
@@ -92,5 +123,9 @@ export const useForm = ({
     handleChangedToggle,
     msgToSend,
     handleChangeTextArea,
+    handleChangeCopyPaste,
+    handleCheckCopyAndPaste,
+    showInputCopyPasteNameAndPhone,
+    refCheckCopyPaste,
   };
 };

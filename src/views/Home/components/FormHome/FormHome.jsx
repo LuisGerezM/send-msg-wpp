@@ -7,13 +7,16 @@ import { FormFields } from "../FormFields/FormFields";
 import {
   ButtonStyled,
   CheckboxStyled,
+  DivCheckStyled,
   FormStyled,
   GroupFieldsStyled,
   InnerSpanStyled,
+  InputCopyPasteStyled,
   LabelToggleStyled,
   SwitchSpanStyled,
   ToggleSwitchStyled,
 } from "../../styled-components/FormHome.styled";
+import { InputStyled } from "../../../../App.styled";
 
 export const FormHome = ({
   handleUsedNumbers,
@@ -23,11 +26,15 @@ export const FormHome = ({
   name,
 }) => {
   const {
-    formik: { handleSubmit, handleChange, handleBlur, errors, touched },
+    formik: { handleSubmit, handleChange, handleBlur, errors, touched, values },
     handleChangeCheckbox,
     handleChangedToggle,
     handleChangeTextArea,
     msgToSend,
+    handleCheckCopyAndPaste,
+    handleChangeCopyPaste,
+    showInputCopyPasteNameAndPhone,
+    refCheckCopyPaste,
   } = useForm({
     handleUsedNumbers,
     handleMessageToSend,
@@ -66,18 +73,48 @@ export const FormHome = ({
           </FormFields>
         </GroupFieldsStyled>
 
+        <DivCheckStyled>
+          <InputStyled
+            id="copyAndPaste"
+            onChange={handleCheckCopyAndPaste}
+            type="checkbox"
+            ref={refCheckCopyPaste}
+          />
+          <label htmlFor="#copyAndPaste">
+            Click si quieres copiar y pegar nombre + número
+          </label>
+        </DivCheckStyled>
+        {showInputCopyPasteNameAndPhone && (
+          <FormFields>
+            <FormInput
+              type="text"
+              onChange={handleChangeCopyPaste}
+              placeholder="Ejemplo: Gerez Luis - 3855004185"
+            />
+          </FormFields>
+        )}
+
         <FormFields
           error={errors.numberToSend}
           touch={touched.numberToSend}
           labelText="Número de teléfono:"
         >
-          <FormInput
-            name="numberToSend"
-            type="text"
-            placeholder="Ingresá el número al que va dirigido el mensaje. EJ: 3855004185"
-            onChange={handleChange}
-            onBlur={handleBlur}
-          />
+          {showInputCopyPasteNameAndPhone ? (
+            <InputCopyPasteStyled
+              name="numberToSend"
+              type="text"
+              value={values.numberToSend}
+              disabled
+            />
+          ) : (
+            <FormInput
+              name="numberToSend"
+              type="text"
+              placeholder="Ingresá el número al que va dirigido el mensaje. EJ: 3855004185"
+              onChange={handleChange}
+              onBlur={handleBlur}
+            />
+          )}
         </FormFields>
 
         <ToggleSwitchStyled>
@@ -107,12 +144,12 @@ export const FormHome = ({
           />
         </FormFields>
 
-        <div>
+        <DivCheckStyled>
           <input id="haveApp" onChange={handleChangeCheckbox} type="checkbox" />
           <label htmlFor="#haveApp">
             Click si tienes la aplicación de wpp instalada
           </label>
-        </div>
+        </DivCheckStyled>
 
         <ButtonStyled type="submit">Enviar</ButtonStyled>
       </FormStyled>
